@@ -1,0 +1,8 @@
+2026 BALLON D'OR MODEL PREDICTION
+=================================
+
+Predicted Winner: Harry Kane
+Final Prediction Score: 75.00/100
+MLP Score: 50.00
+DNN Score: 50.00
+Performance Score: 100.00

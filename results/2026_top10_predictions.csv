@@ -1,0 +1,11 @@
+Predicted_Rank,Player,MLP_Score,DNN_Score,Performance_Score,Final_Prediction_Score
+1,Harry Kane,50.0,50.0,100.0,75.0
+2,Lionel Messi,50.0,50.0,99.05,74.52
+3,Lamine Yamal,50.0,50.0,94.28,72.14
+4,Kylian Mbappe,50.0,50.0,86.72,68.36
+5,Ousmane Dembele,50.0,50.0,70.07,60.03
+6,Michael Olise,50.0,50.0,67.64,58.82
+7,Luis Diaz,50.0,50.0,62.66,56.33
+8,Raphinha,50.0,50.0,61.48,55.74
+9,Bukayo Saka,50.0,50.0,60.31,55.15
+10,Florian Wirtz,50.0,50.0,59.87,54.93
