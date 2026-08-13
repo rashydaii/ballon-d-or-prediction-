@@ -1,7 +1,3 @@
-# ============================================================
-# BALLON D'OR 2026 WINNER PREDICTION - WEEK 6
-# ============================================================
-
 import os
 import warnings
 warnings.filterwarnings("ignore")
@@ -10,6 +6,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import tensorflow as tf
+import seaborn as sns
 
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
@@ -81,6 +78,76 @@ print("Shape:", df2026.shape)
 
 print("\n2026 COLUMNS:")
 print(df2026.columns.tolist())
+# ============================================================
+# 3. EXPLORATORY DATA ANALYSIS (EDA)
+# ============================================================
+
+print("\n" + "=" * 75)
+print("EXPLORATORY DATA ANALYSIS")
+print("=" * 75)
+
+print("\nDataset Shape:")
+print(historical_df.shape)
+
+print("\nColumn Data Types:")
+print(historical_df.dtypes)
+
+print("\nMissing Values:")
+print(historical_df.isnull().sum())
+
+print("\nDescriptive Statistics:")
+print(historical_df.describe(include="all").transpose())
+
+# Save EDA summary for the report
+eda_summary = pd.DataFrame({
+    "Column": historical_df.columns,
+    "Data_Type": historical_df.dtypes.astype(str).values,
+    "Missing_Values": historical_df.isnull().sum().values,
+    "Unique_Values": historical_df.nunique().values
+})
+
+eda_summary.to_csv(
+    os.path.join(RESULTS_FOLDER, "eda_summary.csv"),
+    index=False
+)
+
+# Winner distribution
+plt.figure(figsize=(6, 5))
+historical_df["Rank"].eq(1).astype(int).value_counts().sort_index().plot(
+    kind="bar"
+)
+plt.title("Ballon d'Or Winner Class Distribution")
+plt.xlabel("Winner (0 = No, 1 = Yes)")
+plt.ylabel("Number of Records")
+plt.xticks([0, 1], ["Not Winner", "Winner"], rotation=0)
+plt.tight_layout()
+plt.savefig(
+    os.path.join(RESULTS_FOLDER, "target_distribution.png"),
+    dpi=300
+)
+plt.show()
+
+# Numerical correlation heatmap
+numeric_eda = historical_df.select_dtypes(include=np.number)
+
+if numeric_eda.shape[1] >= 2:
+    plt.figure(figsize=(10, 7))
+    sns.heatmap(
+        numeric_eda.corr(),
+        annot=True,
+        fmt=".2f",
+        cmap="coolwarm"
+    )
+    plt.title("Numerical Feature Correlation Heatmap")
+    plt.tight_layout()
+    plt.savefig(
+        os.path.join(RESULTS_FOLDER, "correlation_heatmap.png"),
+        dpi=300
+    )
+    plt.show()
+
+print("\nEDA completed. EDA files and graphs were saved in the results folder.")
+
 # ============================================================
 # 3. CREATE TARGET
 # ============================================================
@@ -1096,6 +1163,45 @@ prediction_results.head(10).to_csv(
     index=False
 )
 
+
+# ============================================================
+# 35A. RESULTS AND ANALYSIS SUMMARY
+# ============================================================
+
+best_by_f1 = comparison.loc[
+    comparison["F1"].idxmax(),
+    "Model"
+]
+
+best_by_auc = comparison.loc[
+    comparison["AUC"].idxmax(),
+    "Model"
+]
+
+analysis_text = (
+    "Assignment 7 Results and Analysis\\n"
+    "=================================\\n\\n"
+    f"Best model by F1-score: {best_by_f1}\\n"
+    f"Best model by ROC-AUC: {best_by_auc}\\n\\n"
+    "The models were evaluated using accuracy, precision, recall, "
+    "F1-score and ROC-AUC. F1-score is particularly useful here "
+    "because Ballon d'Or winners form a minority class. ROC-AUC "
+    "measures the models' ability to distinguish winners from "
+    "non-winners across classification thresholds. The training "
+    "and validation graphs can be used to discuss learning "
+    "behaviour and possible overfitting. The confusion matrices "
+    "show the numbers of true positives, true negatives, false "
+    "positives and false negatives.\\n"
+)
+
+print("\n" + analysis_text)
+
+with open(
+    os.path.join(RESULTS_FOLDER, "results_analysis.txt"),
+    "w",
+    encoding="utf-8"
+) as f:
+    f.write(analysis_text)
 
 # ============================================================
 # 36. TOP 10 GRAPH

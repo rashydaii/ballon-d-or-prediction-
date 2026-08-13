@@ -1,0 +1,35 @@
+Column,Data_Type,Missing_Values,Unique_Values
+Year,int64,0,4
+Rank,int64,0,30
+Player,str,0,82
+Nationality,str,0,31
+Position,str,0,4
+Club,str,0,30
+Points,int64,0,71
+League,int64,0,2
+League Rating,float64,0,71
+League Top Scorer,int64,0,2
+League Top Assist Provider,int64,0,2
+League Best Goalkeeper,int64,0,2
+League Best Player,int64,0,2
+UCL,float64,15,2
+UCL Rating,float64,15,69
+UCL Top Scorer,float64,15,2
+UCL Top Assist Provider,float64,15,2
+UCL Best Goalkeeper,float64,15,2
+UCL Best Player,float64,15,2
+Continental Cup,float64,89,2
+Continental Cup Rating,float64,89,26
+Continental Cup Top Scorer,float64,89,2
+Continental Cup Top Assist Provider,float64,89,2
+Continental Cup Best Goalkeeper,float64,89,2
+Continental Cup Best Player,float64,89,2
+WC,float64,97,2
+WC Rating,float64,97,20
+WC Top Scorer,float64,97,2
+WC Top Assist Provider,float64,97,2
+WC Best Goalkeeper,float64,97,2
+WC Best Player,float64,97,2
+Other Rating,float64,0,74
+Time-Weighted Google Trend Score,float64,0,120
+Wiki Page Views,int64,0,120
